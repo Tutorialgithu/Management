@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Invoice Billing</title>
+
+    {% load static %}
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e8e5ee;
+      }
+      .inv_container {
+        width: 1503.2 * 118.8px;
+        margin: 20px auto;
+        padding: 10px;
+        border: 1px solid #070707;
+        border-radius: 5px;
+        display: flex; /* Added display:flex to create two columns */
+      }
+      .inv_column {
+        flex: 1; /* Divide the container into two equal columns */
+        padding: 10px;
+      }
+      label {
+        display: inline-block;
+        margin: 10px 0;
+      }
+      input[type="number"] {
+        width: 100px;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .inv_formdiv {
+        padding: 10px;
+      }
+      #inv_total {
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #0c0b0b;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      h1,
+      h4 {
+        margin: 5px 0;
+      }
+      h2 {
+        text-align: center;
+        color: #0e0e0e;
+      }
+      .inv_invoice-header {
+        display: flex;
+        justify-content: space-between;
+      }
+      .inv_left-column {
+        flex: 1;
+      }
+      .inv_right-column {
+        flex: 1;
+      }
+      .inv_invoice-table-container {
+        margin-top: 20px;
+      }
+      .inv_invoice-total {
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: right;
+      }
+      button {
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #222;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Invoice</h2>
+    <div class="inv_container">
+      <div class="inv_column">
+        <div
+          class="inv_invoice-header"
+          style="margin-left: 50px; margin-top: 20px"
+        >
+          <div class="inv_left-column">
+            <h3>Billing By:</h3>
+            <br />
+            <img
+              src="{% static 'img/white-logo.png' %}"
+              class="inv_hotel-logo"
+              alt="Manasvi Hotel Logo"
+              style="width: 250px; background-color: black; padding: 10px"
+            /><br /><br /><br />
+            <h1>Manasvi Hotel</h1>
+            <br />
+            <h4>Address:  Minal Residancy Gate-1 In Front Of Quality Sweets</h4>
+            <br />
+            <h4>Contact: +917553512618</h4>
+            <br />
+            <h4>Gst No: ABC553512618</h4>
+            <br />
+          </div>
+          <div class="inv_right-column">
+            <form style="padding: 20px"></form>
+          </div>
+          <div class="inv_column">
+            <h3>Billing To:</h3>
+            <form>
+              
+              <style>
+                .grid-container {
+                  display: grid;
+                  grid-template-columns: auto auto;
+
+                  padding: 10px;
+                  margin-right: 20px;
+                }
+                .grid-item {
+                  padding: 20px;
+                }
+              </style>
+
+
+              <div class="inv_formdiv grid-container">
+                <div class="grid-item">
+                  <label for="billingToName">Customer name:</label>
+                  <input
+                    type="text"
+                    id="billingToName"
+                    name="billingToName"
+                    style="height: 20px"
+                  />
+                </div>
+                <div class="grid-item">
+                  <label for="billingToName">Invoice No.:</label>
+                  <input
+                    type="text"
+                    id="billingToName"
+                    name="billingToName"
+                    style="height: 20px"
+                  /><br />
+                </div>
+                <div class="grid-item">
+                  <label for="billingToName">Invoice Date.:</label>
+                  <input
+                    type="date"
+                    id="billingToName"
+                    style="width: 165px"
+                    name="billingToName"
+                    style="height: 20px"
+                  /><br />
+                </div>
+                <div class="grid-item">
+                  <label for="billingToAddress">Address:</label>
+                  <input
+                    type="text"
+                    id="billingToAddress"
+                    name="billingToAddress"
+                    style="height: 20px"
+                  /><br />
+                </div>
+                <div class="grid-item">
+                  <label for="billingToMobile">Mobile:</label>
+                  <input
+                    type="text"
+                    id="billingToMobile"
+                    name="billingToMobile"
+                    style="height: 20px"
+                  /><br />
+                </div>
+                <div class="grid-item">
+                  <label for="billingToEmail">Email:</label>
+                  <input
+                    type="text"
+                    id="billingToEmail"
+                    name="billingToEmail"
+                    style="height: 20px"
+                  /><br />
+                </div>
+                <div class="grid-item">
+                  <label for="billingToName">Customer GST No. :</label>
+                  <input
+                    type="text"
+                    id="billingToName"
+                    name="billingToName"
+                    style="height: 20px"
+                  /><br />
+                </div>
+                <div class="inv_formdiv grid-item">
+                  <label for="gstDropdown">GST:</label><br />
+                  <select id="gstDropdown" style="width: 170px; height: 20px">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="cgst_sgst">CGST / SGST</option>
+                    <option value="igst">IGST</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv_invoice-table-container">
+      <table id="invoiceTable">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Particulars</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Taxable Value</th>
+            <th>Discount</th>
+            <th>Sub Total</th>
+            <th>GST Rate</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be dynamically added using JavaScript -->
+        </tbody>
+      </table>
+
+      <button onclick="addNewRow()">Add Row</button>
+      <button onclick="resetPage()">Reset</button>
+
+      <div class="inv_invoice-total" id="tableTotal">Total: 0</div>
+      <div class="inv_invoice-total" id="tableTotal">
+        <label>Paid:</label>
+        <input type="text" id="paidAmount" />
+      </div>
+
+      <div class="inv_invoice-total" id="tableTotal">
+        Balance: <span id="balance"></span>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; text-align: right">
+     
+      <button onclick="myprint()">
+        <a
+          href="{% url 'paymentstatus' %}"
+          style="text-decoration: none; color: white"
+          >Print</a
+        >
+      </button>
+      
+    </div>
+
+    {% comment %} <div class="btn_container">
+      <button class="btn" id="pay-btn">Pay</button>
+    </div> {% endcomment %}
+
+    <script>
+      // Function to add a new row to the table
+      function addNewRow() {
+        let table = document
+          .getElementById("invoiceTable")
+          .getElementsByTagName("tbody")[0];
+        let newRow = table.insertRow(table.rows.length);
+
+        newRow.innerHTML = `<td>${table.rows.length}</td>
+                          <td><input type="text" oninput="calculateTableRow(this.parentNode.parentNode)"></td>
+                          <td><input type="number" value="" oninput="calculateTableRow(this.parentNode.parentNode)"></td>
+                          <td><input type="number" value="" oninput="calculateTableRow(this.parentNode.parentNode)"></td>
+                          <td></td>
+                          <td><input type="number" value="" oninput="calculateTableRow(this.parentNode.parentNode)"></td>
+                          <td></td>
+                          <td><input type="number" value="" oninput="calculateTableRow(this.parentNode.parentNode)"></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>`;
+
+        // Update total after adding the row
+        updateTableTotal();
+      }
+
+      // Function to update calculations when input fields in the table are changed
+      let paidbalnancebefore = document.getElementById("paidAmount").value;
+      function calculateTableRow(row) {
+        let quantity = parseFloat(
+          row.cells[2].getElementsByTagName("input")[0].value
+        );
+        let rate = parseFloat(
+          row.cells[3].getElementsByTagName("input")[0].value
+        );
+        let gstRate = parseFloat(
+          row.cells[7].getElementsByTagName("input")[0].value
+        );
+        let discount = parseFloat(
+          row.cells[5].getElementsByTagName("input")[0].value
+        );
+        let gstOption = document.getElementById("gstDropdown").value;
+
+        let taxableValue = quantity * rate;
+        let cgst = 0;
+        let sgst = 0;
+        let igst = 0;
+        let total = 0;
+
+        if (gstOption === "cgst_sgst") {
+          let discountPrice = taxableValue - taxableValue * (discount / 100);
+          cgst = discountPrice * (gstRate / 200);
+          sgst = discountPrice * (gstRate / 200);
+          total = discountPrice + cgst + sgst;
+        } else if (gstOption === "igst") {
+          let discountPrice = taxableValue - taxableValue * (discount / 100);
+          igst = discountPrice * (gstRate / 100);
+          total = discountPrice + igst;
+        }
+
+        row.cells[4].innerText = taxableValue.toFixed(2);
+        row.cells[6].innerText = (
+          taxableValue -
+          taxableValue * (discount / 100)
+        ).toFixed(2);
+        row.cells[8].innerText = cgst.toFixed(2);
+        row.cells[9].innerText = sgst.toFixed(2);
+        row.cells[10].innerText = igst.toFixed(2);
+        row.cells[11].innerText = total.toFixed(2);
+
+        // Update total after each calculation
+        let paidbalnancebefore = document.getElementById("paidAmount").value;
+        updateTableTotal();
+      }
+
+      // Function to update the total value of the table
+      let totaltablebalance = 0;
+      function updateTableTotal() {
+        let table = document
+          .getElementById("invoiceTable")
+          .getElementsByTagName("tbody")[0];
+        let tableTotal = 0;
+        for (let i = 0; i < table.rows.length; i++) {
+          tableTotal += parseFloat(table.rows[i].cells[11].innerText);
+        }
+        totaltablebalance = tableTotal;
+        let paidamountvalue = document.getElementById("paidAmount").value;
+
+        let totalbal = totaltablebalance - paidamountvalue;
+        document.getElementById("balance").innerText = totalbal;
+        document.getElementById(
+          "tableTotal"
+        ).innerText = `Total: ${tableTotal.toFixed(2)}`;
+        document.getElementById("balance").oninput = function () {
+          document.getElementById("balance").innerText = totalbal;
+        };
+      }
+      let paidamountvalue = 0;
+      document.body.addEventListener("keypress", (e) => {
+        if (e.key == "Enter") {
+          paidamountvalue = document.getElementById("paidAmount").value;
+          document.getElementById("balance").innerText =
+            totaltablebalance - paidamountvalue;
+        }
+      });
+
+      // Function to reset the page
+      function resetPage() {
+        location.reload();
+      }
+
+      // Initial call to add a row to the table
+      addNewRow();
+
+      function myprint() {
+        window.print();
+      }
+    </script>
+  </body>
+</html>
